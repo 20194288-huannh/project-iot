@@ -44,6 +44,15 @@ Vue.use(VueToastr);
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      router.push('/login');
+    }
+    return Promise.reject(error);
+  }
+);
 
 
 
