@@ -168,6 +168,10 @@ export default {
       tableRooms,
     };
   },
+  mounted() {
+
+
+  },
   computed: {
     house_id() {
       return this.$route.params.id;
@@ -352,7 +356,16 @@ export default {
         );
       } else {
         this.device.device_id = this.device.device_id.id
-        DeviceService.createDeviceInRoom(this.selected_room_id, this.device)
+        DeviceService.createDeviceInRoom(this.selected_room_id, this.device).then(
+          (response) => {
+            this.fetchDevices()
+            this.$bvModal.hide("modal-device");
+            this.$toastr.s("Create Device Successfully")
+          },
+          (error) => {
+            // show toast
+          }
+        );
       }
     },
     name ({ name }) {

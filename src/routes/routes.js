@@ -2,8 +2,10 @@ import DashboardLayout from '../layout/DashboardLayout.vue'
 import GuestLayout from '../layout/GuestLayout.vue'
 // GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
+import auth from '../middleware/auth'
 
 // Admin pages
+import VueRouter from "vue-router";
 import UserList from 'src/pages/UserList.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
 import Device from 'src/pages/Device.vue'
@@ -11,6 +13,7 @@ import House from 'src/pages/House.vue'
 import HouseDetail from 'src/pages/HouseDetail.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/Login.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -37,32 +40,38 @@ const routes = [
       {
         path: 'user-list',
         name: 'UserList',
-        component: UserList
+        component: UserList,
+        meta: { requiresAuth: auth }
       },
       {
         path: 'user/:id',
         name: 'User',
-        component: UserProfile
+        component: UserProfile,
+        meta: { requiresAuth: auth }
       },
       {
         path: 'device',
         name: 'Device',
-        component: Device
+        component: Device,
+        meta: { requiresAuth: auth }
       },
       {
         path: 'house',
         name: 'House',
-        component: House
+        component: House,
+        meta: { requiresAuth: auth }
       },
       {
         path: 'house/:id',
         name: 'HouseDetail',
-        component: HouseDetail
+        component: HouseDetail,
+        meta: { requiresAuth: auth }
       },
       {
         path: 'upgrade',
         name: 'Upgrade to PRO',
-        component: Upgrade
+        component: Upgrade,
+        meta: { requiresAuth: auth }
       },
     ]
   },
@@ -77,5 +86,14 @@ function view(name) {
    var res= require('../components/Dashboard/Views/' + name + '.vue');
    return res;
 };**/
-
-export default routes
+const router = new VueRouter({
+  routes
+})
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !store.state.auth.status.loggedIn) {
+    next('login')
+  } else {
+    next()
+  }
+})
+export default router

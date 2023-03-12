@@ -32,7 +32,7 @@
     <b-modal
       id="modal-house"
       ref="modal"
-      :title="selected_house_id ? 'CREATE HOUSE' : 'UPDATE HOUSE'"
+      :title="!selected_house_id ? 'CREATE HOUSE' : 'UPDATE HOUSE'"
       header-bg-variant="dark"
       header-text-variant="light"
       @show="resetModal"
@@ -60,7 +60,7 @@
       <template #modal-footer>
         <div class="w-100">
           <b-button variant="success" class="mr-2" @click="handleSubmit">
-            {{ selected_house_id ? "Create" : "Update" }}
+            {{ !selected_house_id ? "Create" : "Update" }}
           </b-button>
           <b-button variant="danger" @click="show = false"> Cancel </b-button>
         </div>
