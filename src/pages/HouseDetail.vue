@@ -82,7 +82,7 @@
     <b-modal
       id="modal-room"
       ref="modal"
-      :title="selected_room_id ? 'UPDATE DEVICE' : 'CREATE DEVICE'"
+      :title="selected_room_id ? 'UPDATE ROOM' : 'CREATE ROOM'"
       header-bg-variant="dark"
       header-text-variant="light"
       @hidden="resetModalRoom"
@@ -97,7 +97,7 @@
           <b-button variant="success" class="mr-2" @click="handleSubmitRoom">
             {{ selected_room_id ? "Update" : "Create" }}
           </b-button>
-          <b-button variant="danger" @click="show = false"> Cancel </b-button>
+          <b-button variant="danger" @click="cancelRoom"> Cancel </b-button>
         </div>
       </template>
     </b-modal>
@@ -129,7 +129,7 @@
           <b-button variant="success" class="mr-2" @click="handleSubmitDevice">
             {{ selected_device_id ? "Update" : "Create" }}
           </b-button>
-          <b-button variant="danger" @click="show = false"> Cancel </b-button>
+          <b-button variant="danger" @click="cancelDevice"> Cancel </b-button>
         </div>
       </template>
     </b-modal>
@@ -259,6 +259,12 @@ export default {
       this.fetchRoom();
       this.$bvModal.show("modal-room");
     },
+    cancelRoom() {
+      this.$bvModal.hide("modal-room");
+    },
+    cancelDevice() {
+      this.$bvModal.hide("modal-device");
+    },
     fetchDevices() {
       DeviceService.getAllDiviceInRoom(this.selected_room_id).then(
         (response) => {
@@ -279,6 +285,7 @@ export default {
       this.device = {};
     },
     createRoom() {
+      this.selected_room_id = null
       this.room = {};
       this.$bvModal.show("modal-room");
     },

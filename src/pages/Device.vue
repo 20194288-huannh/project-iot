@@ -47,7 +47,7 @@
           <b-button variant="success" class="mr-2" @click="handleSubmit">
             {{ selected_device_id ? "Update" : "Create" }}
           </b-button>
-          <b-button variant="danger" @click="show = false"> Cancel </b-button>
+          <b-button variant="danger" @click="cancel"> Cancel </b-button>
         </div>
       </template>
     </b-modal>
@@ -105,6 +105,9 @@ export default {
       this.selected_device_id = id
       this.fetchDevice(this.selected_device_id);
       this.$bvModal.show("modal-device");
+    },
+    cancel() {
+      this.$bvModal.hide("modal-device");
     },
     resetModal() {
       this.device = {};

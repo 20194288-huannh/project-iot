@@ -13,10 +13,6 @@
         <i class="nc-icon nc-paper-2"></i>
         <p>House</p>
       </sidebar-link>
-      <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-atom"></i>
-        <p>Icons</p>
-      </sidebar-link>
 
       <template slot="bottom-links">
         <sidebar-link class="active"

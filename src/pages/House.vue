@@ -62,7 +62,7 @@
           <b-button variant="success" class="mr-2" @click="handleSubmit">
             {{ !selected_house_id ? "Create" : "Update" }}
           </b-button>
-          <b-button variant="danger" @click="show = false"> Cancel </b-button>
+          <b-button variant="danger" @click="cancel"> Cancel </b-button>
         </div>
       </template>
     </b-modal>
@@ -178,6 +178,9 @@ export default {
           }
         );
       }
+    },
+    cancel () {
+      this.$bvModal.hide("modal-house");
     },
     fetchUsers() {
       UserService.getAllUser().then(
